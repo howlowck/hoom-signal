@@ -1,0 +1,13 @@
+[Unit]
+Description=Signaling Server for Hoom
+Documentation=https://example.com
+After=network.target
+
+[Service]
+Type=simple
+User=forge
+ExecStart=/usr/bin/node /home/forge/hoom-signal.lifeishao.com/index.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
