@@ -3,7 +3,10 @@ var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-http.listen(process.env.PORT || 3003);
+const port = process.env.PORT || 3003
+http.listen(port, () => {
+    console.log('listening to port:', port)
+});
 
 io
     .of('/signal')
