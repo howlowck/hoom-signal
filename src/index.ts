@@ -7,7 +7,16 @@ import socketio from 'socket.io'
 
 const app = express()
 const server = createServer(app)
-const io = socketio(server);
+const io = socketio(server, {
+  handlePreflightRequest: (req, res) => {
+    res.writeHead(200, {
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Origin": req.headers.origin,
+      "Access-Control-Allow-Credentials": true
+    })
+    res.end()
+  }
+});
 
 const silenceLog = process.env.LOGGING_SILENT === 'true' 
 

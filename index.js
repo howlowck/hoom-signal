@@ -18,7 +18,16 @@ var http_1 = require("http");
 var socket_io_1 = __importDefault(require("socket.io"));
 var app = express_1.default();
 var server = http_1.createServer(app);
-var io = socket_io_1.default(server);
+var io = socket_io_1.default(server, {
+    handlePreflightRequest: function (req, res) {
+        res.writeHead(200, {
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Origin": req.headers.origin,
+            "Access-Control-Allow-Credentials": true
+        });
+        res.end();
+    }
+});
 var silenceLog = process.env.LOGGING_SILENT === 'true';
 var logger = winston_1.default.createLogger({
     silent: silenceLog,
